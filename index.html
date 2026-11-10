@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f4f7f1">
+    <title>NutriMind — Nutrition, made personal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main id="auth-section" class="auth-shell">
+        <section class="auth-story" aria-label="About NutriMind">
+            <a class="brand" href="#" aria-label="NutriMind home">
+                <span class="brand-mark">n</span>
+                <span>nutri<span class="brand-light">mind</span></span>
+            </a>
+            <div class="story-copy">
+                <span class="eyebrow"><span class="live-dot"></span> YOUR AI NUTRITION COMPANION</span>
+                <h1>Small choices.<br><em>Better you.</em></h1>
+                <p>Make sense of food, build healthier habits, and get thoughtful guidance—one conversation at a time.</p>
+                <div class="model-note">
+                    <span class="model-icon">✳</span>
+                    <span><strong>Powered by deep learning</strong><br>Conversational guidance from a pretrained transformer language model.</span>
+                </div>
+            </div>
+            <div class="story-footer">A little better, every day <span>✦</span></div>
+            <div class="decor decor-one"></div>
+            <div class="decor decor-two"></div>
+        </section>
+
+        <section class="auth-panel">
+            <div class="auth-card">
+                <span class="eyebrow">WELCOME TO NUTRIMIND</span>
+                <h2>Good to see you.</h2>
+                <p class="muted">Sign in or create an account to continue.</p>
+                <label for="email">Email address</label>
+                <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="At least 6 characters" autocomplete="current-password">
+                <div class="auth-actions">
+                    <button id="login-button" class="button button-primary" onclick="login()">Sign in <span>→</span></button>
+                    <button id="signup-button" class="button button-secondary" onclick="signUp()">Create account</button>
+                </div>
+                <p id="auth-error" class="auth-error" role="alert" aria-live="polite"></p>
+                <p class="privacy-note">Your account and progress are stored securely with Firebase.</p>
+            </div>
+        </section>
+    </main>
+
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand sidebar-brand" href="#" aria-label="NutriMind">
+                <span class="brand-mark">n</span><span>nutri<span class="brand-light">mind</span></span>
+            </a>
+            <span class="sidebar-label">WORKSPACE</span>
+            <nav class="side-nav" aria-label="Main navigation">
+                <button class="nav-button active" onclick="goBackToChat()"><span>✳</span> AI Nutrition Chat</button>
+                <button class="nav-button" onclick="openChatHistory()"><span>◷</span> Conversation history</button>
+                <button class="nav-button" onclick="goToProgress()"><span>↗</span> Habit journey</button>
+            </nav>
+            <div class="sidebar-spacer"></div>
+            <div class="model-card">
+                <span class="model-card-icon">✦</span>
+                <strong>Deep learning inside</strong>
+                <p>A transformer language model understands your questions and generates helpful responses.</p>
+                <span class="model-tag">PRETRAINED AI · GPT</span>
+            </div>
+            <button class="nav-button theme-button" onclick="toggleDarkMode()"><span>◐</span> Toggle appearance</button>
+            <button class="nav-button logout-button" onclick="logout()"><span>↪</span> Sign out</button>
+            <div class="sidebar-caption">NUTRITION, MADE PERSONAL</div>
+        </aside>
+
+        <main class="workspace">
+            <section id="chat-section" class="workspace-view" style="display:none;">
+                <header class="topbar">
+                    <div><span class="eyebrow">YOUR PERSONAL FOOD GUIDE</span><h2>Nutrition chat</h2></div>
+                    <div class="topbar-actions">
+                        <span class="status-pill"><span class="live-dot"></span> AI ready</span>
+                        <button class="icon-button" onclick="startNewChat()" aria-label="Start a new chat" title="New chat">＋</button>
+                    </div>
+                </header>
+                <div class="chat-layout">
+                    <div class="chat-main card">
+                        <div class="chat-intro">
+                            <div class="assistant-avatar">✳</div>
+                            <div><strong>Your nutrition assistant</strong><span>Ask about ingredients, balanced meals, or healthy habits.</span></div>
+                            <span class="powered-label">DEEP LEARNING</span>
+                        </div>
+                        <div id="chat-box" class="chat-box" aria-live="polite">
+                            <div class="welcome-card">
+                                <span class="welcome-spark">✦</span>
+                                <h3>What would you like to feel better about?</h3>
+                                <p>I can help you explore everyday nutrition questions. I’m an AI assistant, not a medical professional.</p>
+                                <div class="suggestions">
+                                    <button onclick="askSuggestion('What does a balanced lunch look like?')">🥗 Balanced lunch ideas</button>
+                                    <button onclick="askSuggestion('Suggest some healthy high-protein snacks.')">🥜 High-protein snacks</button>
+                                    <button onclick="askSuggestion('How can I build a healthier eating habit?')">🌱 Build a healthy habit</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="chat-status" class="chat-status" aria-live="polite"></div>
+                        <form class="composer" onsubmit="event.preventDefault(); sendMessage();">
+                            <input id="user-input" type="text" placeholder="Ask a nutrition question…" autocomplete="off" aria-label="Your message">
+                            <button id="send-button" class="send-button" type="submit">Send <span>↑</span></button>
+                        </form>
+                        <p class="disclaimer">General information only. For medical or dietary conditions, consult a qualified professional.</p>
+                    </div>
+                    <aside class="chat-aside">
+                        <div class="tip-card">
+                            <span class="tip-icon">☀</span>
+                            <span class="eyebrow">A GENTLE REMINDER</span>
+                            <h3>Progress over perfection.</h3>
+                            <p>Small, consistent habits are often easier to maintain than big changes.</p>
+                        </div>
+                        <div class="info-card">
+                            <span class="eyebrow">HOW THE AI WORKS</span>
+                            <ol class="pipeline">
+                                <li><span>01</span> You ask a question</li>
+                                <li><span>02</span> A transformer processes language</li>
+                                <li><span>03</span> It generates a response</li>
+                            </ol>
+                            <p class="tiny-note">This project uses a pretrained model via API; it does not train a model locally.</p>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <section id="history-section" class="workspace-view" style="display:none;">
+                <header class="topbar">
+                    <div><span class="eyebrow">YOUR PAST CONVERSATIONS</span><h2>Chat history</h2></div>
+                    <button class="button button-secondary" onclick="goBackToChat()">← Back to chat</button>
+                </header>
+                <div class="card history-card">
+                    <ul id="chat-history-list"></ul>
+                    <p class="history-hint">Select a conversation to open it. Use the trash button to remove one.</p>
+                </div>
+            </section>
+
+            <section id="progress-section" class="workspace-view" style="display:none;">
+                <header class="topbar">
+                    <div><span class="eyebrow">YOUR HEALTHY-HABIT JOURNEY</span><h2>Progress tracker</h2></div>
+                    <button class="button button-secondary" onclick="goBackToChat()">← Back to chat</button>
+                </header>
+                <div class="progress-layout">
+                    <div class="card progress-card">
+                        <div class="progress-heading"><span class="eyebrow">30-DAY CONSISTENCY CHALLENGE</span><span class="progress-leaf">✿</span></div>
+                        <h3>One day at a time.</h3>
+                        <p class="muted">Build a routine that feels realistic and works for you.</p>
+                        <div class="progress-container"><div id="progress-fill" class="progress-bar"></div></div>
+                        <p id="progress-day">Day 0 of 30</p>
+                        <div class="timer-card"><span class="eyebrow">TIME IN CURRENT DAY</span><p id="timer">00:00:00</p></div>
+                        <div class="progress-actions">
+                            <button class="button button-primary" onclick="startProgress()">Start journey <span>→</span></button>
+                            <button class="button button-secondary" onclick="resetProgress()">Reset</button>
+                        </div>
+                    </div>
+                    <aside class="tip-card progress-tip"><span class="tip-icon">🌱</span><span class="eyebrow">KEEP IT KIND</span><h3>Habits grow with practice.</h3><p>This tracker is a gentle nudge—not a measure of your worth or health.</p></aside>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
